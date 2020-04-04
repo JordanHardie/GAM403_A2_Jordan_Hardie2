@@ -4,6 +4,13 @@ using UnityEngine;
 
 public class CameraMove : MonoBehaviour
 {
+    private Animator animator;
+
+    private void Start()
+    {
+        animator = GetComponent<Animator>();
+    }
+
     void Update()
     {
         //Call tilt function every frame
@@ -16,24 +23,34 @@ public class CameraMove : MonoBehaviour
         transform.Rotate(-Input.GetAxis("Mouse Y"), 0, 0);
         
         //Tilt's the camera on key down and then tilts it back on key release. This is aesthetic.
+        if (Input.GetKeyDown(KeyCode.W))
+        {
+            animator.SetBool("WalkingForward", true);
+        }
+
+        if (Input.GetKeyUp(KeyCode.W))
+        {
+            animator.SetBool("WalkingForward", false);
+        }
+
         if (Input.GetKeyDown(KeyCode.A))
         {
-            transform.Rotate(0, 0, 5);
+            
         }
 
         if (Input.GetKeyUp(KeyCode.A))
         {
-            transform.Rotate(0, 0, -5);
+            
         }
 
         if (Input.GetKeyDown(KeyCode.D))
         {
-            transform.Rotate(0, 0, -5);
+            
         }
 
         if (Input.GetKeyUp(KeyCode.D))
         {
-            transform.Rotate(0, 0, 5);
+            
         }
     }
 }
