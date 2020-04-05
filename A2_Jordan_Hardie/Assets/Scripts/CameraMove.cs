@@ -35,22 +35,32 @@ public class CameraMove : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.A))
         {
-            
+            animator.SetBool("WalkingLeft", true);
         }
 
         if (Input.GetKeyUp(KeyCode.A))
         {
-            
+            animator.SetBool("WalkingLeft", false);
         }
 
         if (Input.GetKeyDown(KeyCode.D))
         {
-            
+            animator.SetBool("WalkingRight", true);
         }
 
         if (Input.GetKeyUp(KeyCode.D))
         {
-            
+            animator.SetBool("WalkingRight", false);
+        }
+
+        if (Input.GetKeyDown(KeyCode.S))
+        {
+            animator.SetBool("WalkingBack", true);
+        }
+
+        if (Input.GetKeyUp(KeyCode.S))
+        {
+            animator.SetBool("WalkingBack", false);
         }
     }
 }
