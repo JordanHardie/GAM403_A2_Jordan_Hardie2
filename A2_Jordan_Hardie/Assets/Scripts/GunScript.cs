@@ -27,7 +27,7 @@ public class GunScript : MonoBehaviour
     void shoot()
     {
         //If clickity click and time is greater than next fire.
-        if (Input.GetMouseButtonDown(0) && Time.time > nextFire)
+        if (Input.GetMouseButton(0) && Time.time > nextFire)
         {
             //Add rate to next fire
             nextFire += rate;
@@ -49,7 +49,7 @@ public class GunScript : MonoBehaviour
                 //See if its the weakpoint of the spawner.
                 if(hit.collider.gameObject.tag == "Weakpoint")
                 {
-                    //The weakpoint itself doesn't have the enemy script, but the swpaner parent its attached to does.
+                    //The weakpoint itself doesn't have the enemy script, but the spawner parent its attached to does.
                     //This is because if I tried to attach the script to the weakpoint, it would make its seperate health.
                     hit.collider.gameObject.GetComponentInParent<EnemyScript>().TakeDmg(100);
                 }
