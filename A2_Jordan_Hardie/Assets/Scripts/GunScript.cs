@@ -10,7 +10,7 @@ public class GunScript : MonoBehaviour
     //Layermask for enemies
     public LayerMask lm;
     //A reference to the camera
-    public GameObject cam;
+    public GameObject cam, bullet;
     //Gem values placeholders. Why two? Because.
     private int gem = 0, Gem = 0;
     //To make the fire rate actually work
@@ -18,42 +18,22 @@ public class GunScript : MonoBehaviour
     
     void Update()
     {
-        //Shoot the kids.
-        //Hang the Family.
-        //Frame them all.
         shoot();
     }
 
     void shoot()
     {
         //If clickity click and time is greater than next fire.
-        if (Input.GetMouseButton(0) && Time.time > nextFire)
+        if (Input.GetMouseButtonDown(0) && Time.time > nextFire)
         {
-            //Add rate to next fire
-            nextFire += rate;
-            //Make a new ray call it ray and its from the camera and goes forward.
-            //This is sothat the reticule makes sense.
-            Ray ray = new Ray(cam.transform.position, cam.transform.forward);
-            //What the raycast hit
+            Ray ray = new Ray(transform.position, cam.transform.forward);
             RaycastHit hit;
-            //if laser beam hits something within 100 units and its an enemy.
-            if (Physics.Raycast(ray, out hit, 100, lm))
+
+            if (Physics.Raycast(ray, out hit, 100))
             {
-                //See if its an Enemy.
-                if(hit.collider.gameObject.tag == "Enemy")
-                {
-                    //Do 100 damage to the enemy.
-                    hit.collider.gameObject.GetComponent<EnemyScript>().TakeDmg(100);
-                }
-                
-                //See if its the weakpoint of the spawner.
-                if(hit.collider.gameObject.tag == "Weakpoint")
-                {
-                    //The weakpoint itself doesn't have the enemy script, but the spawner parent its attached to does.
-                    //This is because if I tried to attach the script to the weakpoint, it would make its seperate health.
-                    hit.collider.gameObject.GetComponentInParent<EnemyScript>().TakeDmg(100);
-                }
             }
+
+            Instantiate(bullet, transform.position, Quaternion.LookRotation(ray.direction));
         }
     }
 
