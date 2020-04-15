@@ -5,7 +5,6 @@ using UnityEngine;
 public class CameraAnim : MonoBehaviour
 {
     private Animator animator;
-    private bool inAir;
     private void Start()
     {
         animator = GetComponent<Animator>();
@@ -62,14 +61,15 @@ public class CameraAnim : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            if (inAir == false)
+            bool state = GetComponentInParent<PlayerMovement>().inAir();
+            if (state == false)
             {
                 animator.SetBool("IsJumping", false);
             }
 
-            if (inAir == true)
+            if (state == true)
             {
-                animator.SetBool("IsJumping", false);
+                animator.SetBool("IsJumping", true);
             }
         }
     }

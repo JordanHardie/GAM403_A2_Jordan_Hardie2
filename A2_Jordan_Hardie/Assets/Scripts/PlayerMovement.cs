@@ -38,4 +38,9 @@ public class PlayerMovement : MonoBehaviour
     {
         isInAir = true;
     }  
+
+    public bool inAir()
+    {
+        return isInAir;
+    }
 }

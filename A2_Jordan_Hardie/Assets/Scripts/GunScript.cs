@@ -14,7 +14,7 @@ public class GunScript : MonoBehaviour
     //Gem values placeholders. Why two? Because.
     private int gem = 0, Gem = 0;
     //To make the fire rate actually work
-    private float nextFire = 0;
+    private float nextFire = -1f;
     
     void Update()
     {
@@ -23,8 +23,13 @@ public class GunScript : MonoBehaviour
 
     void shoot()
     {
-        //If clickity click and time is greater than next fire.
-        if (Input.GetMouseButtonDown(0) && Time.time > nextFire)
+        if (nextFire > 0)
+        {
+            nextFire -= Time.deltaTime;
+            return;
+        }
+
+        else if (Input.GetMouseButton(0))
         {
             Ray ray = new Ray(transform.position, cam.transform.forward);
             RaycastHit hit;
@@ -34,6 +39,8 @@ public class GunScript : MonoBehaviour
             }
 
             Instantiate(bullet, transform.position, Quaternion.LookRotation(ray.direction));
+
+            nextFire = rate;
         }
     }
 
@@ -45,8 +52,9 @@ public class GunScript : MonoBehaviour
 
         if(gem == 10)
         {
-            //if its equal to 10 icnrease fire rate by 10%
-            rate *= 1.1f;
+            //if its equal to 10 increase fire rate by 10%
+            rate /= 1.1f;
+            print("Increased fire rate by 10%");
             //Reset the count to zero, this is why I need two, one for display on UI, one for function.
             gem = 0;
         }

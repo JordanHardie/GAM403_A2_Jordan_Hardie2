@@ -4,10 +4,16 @@ using UnityEngine;
 
 public class GemScript : MonoBehaviour
 {
+    private float timer = 15;
     void Update()
     {
         //Frame rate independant spinning animation.
         transform.Rotate(20 * Time.deltaTime, 20 * Time.deltaTime, 20 * Time.deltaTime);
+        timer -= Time.deltaTime;
+        if (timer <= 0) 
+        {
+            Destroy(gameObject);
+        }
     }
 
     private void OnCollisionEnter(Collision collision)

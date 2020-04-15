@@ -5,9 +5,16 @@ using UnityEngine;
 public class BulletScript : MonoBehaviour
 {
     private float lifetime = 6;
+    private Rigidbody rb;
+
+    private void Start()
+    {
+        rb = GetComponent<Rigidbody>();
+    }
+
     void Update()
     {
-        transform.Translate(0, 0, 5 * Time.deltaTime);
+        rb.AddForce(transform.forward * 50 * Time.deltaTime, ForceMode.VelocityChange);
         transform.Rotate(0, 0, 45 * Time.deltaTime);
         lifetime -= Time.deltaTime;
         if(lifetime <= 0)
