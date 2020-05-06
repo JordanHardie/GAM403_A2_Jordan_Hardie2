@@ -5,14 +5,34 @@ using UnityEngine;
 public class GemScript : MonoBehaviour
 {
     private float timer = 15;
+    public GameObject Gem;
+    private GameObject Player;
     void Update()
     {
         //Frame rate independant spinning animation.
-        transform.Rotate(20 * Time.deltaTime, 20 * Time.deltaTime, 20 * Time.deltaTime);
+        Gem.transform.Rotate(20 * Time.deltaTime, 20 * Time.deltaTime, 20 * Time.deltaTime);
         timer -= Time.deltaTime;
+        Magnet();
         if (timer <= 0) 
         {
             Destroy(gameObject);
+        }
+    }
+
+    void Magnet()
+    {
+        if(Input.GetMouseButtonDown(0) || Input.GetMouseButton(0))
+        {
+            Player = GameObject.FindGameObjectWithTag("Player");
+            transform.LookAt(Player.transform);
+            transform.Translate(0, 0, -5 * Time.deltaTime);
+        }
+
+        else
+        {
+            Player = GameObject.FindGameObjectWithTag("Player");
+            transform.LookAt(Player.transform);
+            transform.Translate(0, 0, 10 * Time.deltaTime);
         }
     }
 

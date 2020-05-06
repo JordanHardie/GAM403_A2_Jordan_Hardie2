@@ -107,8 +107,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hp: 100
-  speed: 2
-  Gem: {fileID: 2065715415095551149, guid: 066bcb871dad162448d95bf1fd4e7cd5, type: 3}
+  speed: 4
+  rotSpeed: 0.1
+  Gem: {fileID: 8463152883001129811, guid: 3d66b026ac853d645aada69c6c171a24, type: 3}
   Enemy: {fileID: 24557221133128688}
 --- !u!1 &469916639409388576
 GameObject:

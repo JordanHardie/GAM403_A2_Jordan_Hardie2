@@ -9,13 +9,19 @@ public class BulletScript : MonoBehaviour
 
     private void Start()
     {
+        //Grab the rigidbody.
         rb = GetComponent<Rigidbody>();
     }
 
     void Update()
     {
+        //Bullet goes forward instantly.
         rb.AddForce(transform.forward * 50 * Time.deltaTime, ForceMode.VelocityChange);
+
+        //Make it spin.
         transform.Rotate(0, 0, 45 * Time.deltaTime);
+
+        //Make it so that eventually the bullet goes away.
         lifetime -= Time.deltaTime;
         if(lifetime <= 0)
         {
@@ -25,6 +31,7 @@ public class BulletScript : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
+        //Just to make sure it's hitting what I want it to.
         if(collision.gameObject.tag == "Enemy" || collision.gameObject.tag == "Weakpoint")
         {
             if (collision.gameObject.tag == "Enemy")
@@ -35,10 +42,12 @@ public class BulletScript : MonoBehaviour
 
             if (collision.gameObject.tag == "Weakpoint")
             {
-                collision.gameObject.GetComponentInParent<EnemyScript>().TakeDmg(100);
-                Destroy(gameObject);
+                GameObject weakpoint = collision.gameObject;
+                int i = collision.gameObject.GetComponent<WeakPointManager>().returnIndex();
+                collision.gameObject.GetComponentInParent<WeakPointScript>().TakeDmg(100, i, weakpoint);
             }
         }
+
         else
         {
             Destroy(gameObject);

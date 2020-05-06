@@ -23,23 +23,31 @@ public class GunScript : MonoBehaviour
 
     void shoot()
     {
+        //If next fire is greater than zero
         if (nextFire > 0)
         {
+            //Basic timer for nextFire
             nextFire -= Time.deltaTime;
             return;
         }
 
+        //Else if the user clicks.
         else if (Input.GetMouseButton(0))
         {
+            //Creates ray from the gun position, towards the forward of the camera, so the recticule is correct.
             Ray ray = new Ray(transform.position, cam.transform.forward);
+
+            //Unused but hit information just so the raycast actually works.
             RaycastHit hit;
 
             if (Physics.Raycast(ray, out hit, 100))
             {
             }
 
+            //The raycast creates a path for the bullet to follow.
             Instantiate(bullet, transform.position, Quaternion.LookRotation(ray.direction));
 
+            //Reset nextFire
             nextFire = rate;
         }
     }

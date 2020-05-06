@@ -7,10 +7,11 @@ using UnityEngine.SceneManagement;
 public class UI_Logic : MonoBehaviour
 {
     public Text timerText, deathText, gemText, restartText;
-    public GameObject Gun, Spawner;
+    public GameObject Gun, Spawner, Floor;
     private string saved;
-    private float seconds = 0, countdown = 5;
-    private int minutes = 0, x, z;
+    private float seconds = 0, countdown = 0;
+    private float fixedCountdown = 20;
+    private int x, z;
 
     void Start()
     {
@@ -26,18 +27,22 @@ public class UI_Logic : MonoBehaviour
 
     void timer()
     {
+        if(seconds % 50 == 0)
+        {
+            fixedCountdown /= 1.001f;           
+        }
+
+        if(seconds % 200 == 0)
+        {
+            Floor.transform.localScale /= 1.01f;
+        }
+
         countdown -= Time.deltaTime;
         seconds += Time.deltaTime;
 
-        timerText.text = minutes + ":" + seconds;
+        timerText.text = seconds.ToString();
 
         gemText.text = "Gem Count: " + Gun.GetComponent<GunScript>().gemValue();
-
-        if (seconds >= 60)
-        {
-            minutes += 1;
-            seconds = 0;
-        }
 
         if (countdown <= 0)
         {
@@ -62,7 +67,7 @@ public class UI_Logic : MonoBehaviour
         {
             deathText.gameObject.SetActive(true);
 
-            saved = minutes + ":" + seconds;
+            saved = seconds.ToString();
             deathText.text = "You Died! Time survived: " + saved;
 
             Time.timeScale = 0;
@@ -73,7 +78,7 @@ public class UI_Logic : MonoBehaviour
 
     private void SpawnerSpawn()
     {
-        countdown = Random.Range(10, 15);
+        countdown = fixedCountdown;
 
         float flip = Random.Range(1, 3);
 
