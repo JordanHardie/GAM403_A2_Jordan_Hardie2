@@ -122,7 +122,7 @@ GameObject:
   - component: {fileID: 318123248875165477}
   m_Layer: 0
   m_Name: SpawnerTwo
-  m_TagString: Spawner
+  m_TagString: SpawnerTwo
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -224,7 +224,10 @@ MonoBehaviour:
   speed: 2
   spawnRate: 5
   Gem: {fileID: 8463152883001129811, guid: 3d66b026ac853d645aada69c6c171a24, type: 3}
-  Enemy: {fileID: 24557221133128688, guid: 56924c6c7ddf46841a196fbf769c49d5, type: 3}
+  Enemy:
+  - {fileID: 24557221133128688, guid: 56924c6c7ddf46841a196fbf769c49d5, type: 3}
+  - {fileID: 8003273826572363198, guid: 2ec3bc7b777fba84d8a79a517f3794d7, type: 3}
+  isEnemyTwo: 0
 --- !u!114 &318123248875165477
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -241,6 +244,7 @@ MonoBehaviour:
   hp:
   - 500
   - 500
+  health: 1000
 --- !u!1 &1463574786399965809
 GameObject:
   m_ObjectHideFlags: 0

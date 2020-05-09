@@ -7,11 +7,12 @@ using UnityEngine.SceneManagement;
 public class UI_Logic : MonoBehaviour
 {
     public Text timerText, deathText, gemText, restartText;
-    public GameObject Gun, Spawner, Floor;
+    public GameObject Gun, Spawner, Floor, SpawnerTwo;
     private string saved;
     private float seconds = 0, countdown = 0;
-    private float fixedCountdown = 20;
+    private float fixedCountdown = 10;
     private int x, z;
+    private bool spawnerTwoIsActive;
 
     void Start()
     {
@@ -27,14 +28,19 @@ public class UI_Logic : MonoBehaviour
 
     void timer()
     {
-        if(seconds % 50 == 0)
+        if (seconds % 25 == 0)
         {
-            fixedCountdown /= 1.001f;           
+            fixedCountdown /= 1.01f;           
         }
 
-        if(seconds % 200 == 0)
+        if (seconds % 100 == 0)
         {
             Floor.transform.localScale /= 1.01f;
+        }
+
+        if (seconds >= 60)
+        {
+            spawnerTwoIsActive = true;
         }
 
         countdown -= Time.deltaTime;
@@ -47,7 +53,26 @@ public class UI_Logic : MonoBehaviour
         if (countdown <= 0)
         {
             SpawnerSpawn();
-            Instantiate(Spawner, new Vector3(x, 1.5f, z), new Quaternion(0, 0, 0, 0));
+
+            if (spawnerTwoIsActive == true)
+            {
+                int flip = Random.Range(1, 3);
+
+                if (flip == 1)
+                {
+                    Instantiate(Spawner, new Vector3(x, 1.5f, z), new Quaternion(0, 0, 0, 0));
+                }
+
+                if (flip == 2)
+                {
+                    Instantiate(SpawnerTwo, new Vector3(x, 1.5f, z), new Quaternion(0, 0, 0, 0));
+                }
+            }
+
+            if (spawnerTwoIsActive == false)
+            {
+                Instantiate(Spawner, new Vector3(x, 1.5f, z), new Quaternion(0, 0, 0, 0));
+            }
         }
 
         if(restartText.IsActive() == true)
