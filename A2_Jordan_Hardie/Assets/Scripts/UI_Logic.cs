@@ -81,7 +81,7 @@ public class UI_Logic : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.R) || Input.GetKeyDown(KeyCode.KeypadEnter))
             {
                 Time.timeScale = 1;
-                SceneManager.LoadScene("SampleScene");
+                SceneManager.LoadScene("GameScene");
             }
         }
     }
